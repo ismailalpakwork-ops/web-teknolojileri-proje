@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LynxMovie | Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo" id="logo" onclick="location.reload()">LynxMovie</div>
+        
+        <div class="type-filters">
+            <button class="type-btn active" onclick="setType('all')">Hepsi</button>
+            <button class="type-btn" onclick="setType('movie')">Filmler</button>
+            <button class="type-btn" onclick="setType('series')">Diziler</button>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Film veya dizi ara...">
+        </div>
+
+        <div class="nav-btns">
+            <button id="favBtn" class="premium-btn" onclick="showFavorites()">
+                ❤️ Listem <span id="favCount" class="badge-counter">0</span>
+            </button>
+            
+            <button id="themeToggle" class="theme-btn" aria-label="Tema Değiştir">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<section id="hero" class="hero-section">
+    <div class="hero-content">
+        <h1 id="hero-title">Yükleniyor...</h1>
+        <p id="hero-desc">Lütfen bekleyin...</p>
+        <div class="hero-btns">
+            <button class="play-btn" onclick="showToast('Oynatılıyor...')">▶ Oynat</button>
+            <button class="filter-btn" id="heroInfoBtn">ℹ Detaylar</button>
+        </div>
+    </div>
+</section>
+
+<section class="filter-panel">
+    <div class="dropdown">
+        <button class="dropbtn">📂 Türler ▼</button>
+        <div class="dropdown-content" id="dynamicCategories"></div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">📅 Yıllar ▼</button>
+        <div class="dropdown-content" id="yearFilter">
+            <button onclick="setYear('Tümü')">Tüm Yıllar</button>
+            <button onclick="setYear('2020+')">2020 ve Sonrası</button>
+            <button onclick="setYear('2010-2019')">2010 - 2019</button>
+            <button onclick="setYear('2000-2009')">2000 - 2009</button>
+            <button onclick="setYear('90s')">90'lar</button>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">🔃 Sırala ▼</button>
+        <div class="dropdown-content">
+            <button onclick="setSort('rating')">⭐ Puan</button>
+            <button onclick="setSort('newest')">🆕 Yeni</button>
+            <button onclick="setSort('alpha')">🔤 A-Z</button>
+        </div>
+    </div>
+
+    <div class="active-filters" id="activeFilters"></div>
+</section>
+
+<main>
+    <section id="movieList"></section>
+</main>
+
+<div id="detailsModal" class="modal-overlay"></div>
+
+<button id="scrollTop" title="Yukarı Çık">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>

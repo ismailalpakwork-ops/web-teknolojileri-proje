@@ -1,0 +1,654 @@
+
+:root { 
+    --accent: #53fc18;
+    --dark: #0b0e11;   
+    --card: #191b1f; 
+    --gray: #24272c;
+    --text: #ffffff;
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+body.light-mode {
+    --dark: #f0f0f2;
+    --card: #ffffff;
+    --gray: #d8d8df;
+    --text: #323338;
+}
+
+body { 
+    background: var(--dark); 
+    color: var(--text); 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
+    transition: background 0.4s, color 0.4s;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, p, span { color: var(--text); }
+
+/* --- NAVBAR --- */
+nav { 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 15px 5%; background: rgba(11, 14, 17, 0.8); 
+    backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000; 
+    border-bottom: 1px solid rgba(83, 252, 24, 0.1);
+}
+body.light-mode nav { background: rgba(240, 240, 242, 0.85); border-bottom: 1px solid #ddd; }
+
+/* --- HERO SECTION --- */
+.hero-section {
+    height: 75vh; background-size: cover !important; background-position: center 20% !important;
+    display: flex; align-items: center; padding: 0 5%; position: relative;
+    image-rendering: -webkit-optimize-contrast;
+    box-shadow: inset 0 -150px 120px var(--dark);
+    background-image: linear-gradient(to right, var(--dark) 25%, transparent 100%);
+}
+body.light-mode .hero-section { background-image: linear-gradient(to right, rgba(240, 240, 242, 0.9), transparent); }
+
+/* --- SINEMATIK MODAL (Backdrop Effect) --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+    z-index: 2000; display: none; justify-content: center; align-items: center;
+}
+
+.modal-content {
+    background: var(--card); width: 75%; max-width: 950px;
+    max-height: 90vh; border-radius: 24px; overflow: hidden;
+    position: relative; border: 1px solid rgba(83, 252, 24, 0.2);
+    animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-header {
+    height: 450px; background-size: cover !important; background-position: center !important;
+    position: relative; image-rendering: -webkit-optimize-contrast;
+}
+
+.modal-header::after {
+    content: ''; position: absolute; bottom: 0; width: 100%; height: 70%;
+    background: linear-gradient(to top, var(--card), transparent);
+}
+
+.modal-body { padding: 0 40px 40px; position: relative; margin-top: -80px; z-index: 5; }
+
+/* --- KARTLAR VE GRID --- */
+.grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; padding: 40px 5%; }
+.card {
+    background: var(--card); border-radius: 15px; overflow: hidden;
+    transition: var(--transition); border: 1px solid rgba(255,255,255,0.05);
+}
+.card:hover { transform: translateY(-10px) scale(1.03); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+.card img { width: 100%; height: 330px; object-fit: cover; image-rendering: -webkit-optimize-contrast; }
+
+/* --- DIGER ELEMENTLER --- */
+.badge-counter { background: #fff; color: #000; font-size: 11px; padding: 2px 6px; border-radius: 50%; margin-left: 5px; font-weight: bold; }
+.theme-btn { background: var(--gray); border: none; padding: 10px; border-radius: 50%; cursor: pointer; }
+
+
+/* --- 1. PREMIUM NAVBAR (Glassmorphism + Neon Glow) --- */
+nav { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 15px 5%; 
+    background: rgba(11, 14, 17, 0.8); 
+    backdrop-filter: blur(15px); /* Arka planı bulanıklaştırır */
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    border-bottom: 1px solid rgba(83, 252, 24, 0.1);
+    transition: var(--transition);
+}
+
+.logo { 
+    font-size: 1.7rem; 
+    font-weight: 900; 
+    color: var(--accent); 
+    cursor: pointer; 
+    letter-spacing: -1px;
+    text-shadow: 0 0 15px rgba(83, 252, 24, 0.3);
+}
+
+input { 
+    padding: 12px 20px; 
+    width: 400px; 
+    border-radius: 8px; 
+    border: 1px solid var(--gray); 
+    background: rgba(25, 27, 31, 0.8); 
+    color: white; 
+    outline: none;
+    transition: var(--transition);
+}
+
+input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(83, 252, 24, 0.15);
+    width: 450px;
+}
+
+/* Buton Işıma Efekti */
+#favBtn, .play-btn {
+    position: relative;
+    overflow: hidden;
+    background: var(--accent);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(83, 252, 24, 0.2);
+    transition: var(--transition);
+}
+
+#favBtn::after, .play-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: rotate(30deg);
+    transition: 0.6s;
+}
+
+#favBtn:hover::after, .play-btn:hover::after {
+    left: 120%;
+}
+
+#favBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(83, 252, 24, 0.5);
+}
+
+/* --- 2. SİNEMATİK HERO ALANI --- */
+.hero-section {
+    height: 75vh; /* Biraz daha genişletelim, daha görkemli dursun */
+    background-size: cover !important;
+    background-position: center 20% !important;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    position: relative;
+    /* Resmin netliğini artırmak için */
+    image-rendering: -webkit-optimize-contrast;
+    
+    /* Çift katmanlı gölge: Hem alttan hem soldan metni okunaklı yapar */
+    box-shadow: inset 0 -150px 120px var(--dark);
+    background-image: linear-gradient(to right, var(--dark) 25%, transparent 100%);
+}
+
+/* Afişin üstüne sinematik bir film katmanı (grain/vignette) ekleyelim */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-content h1 { 
+    font-size: 4.5rem; 
+    margin: 0; 
+    color: var(--accent); 
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(83, 252, 24, 0.2);
+}
+
+.hero-content p { 
+    max-width: 600px; 
+    font-size: 1.3rem; 
+    color: #adadb8;
+    margin-top: 20px;
+}
+
+/* --- 3. MODERN FİLTRELER --- */
+.category-filters { padding: 30px 5%; display: flex; gap: 12px; flex-wrap: wrap; }
+.filter-btn { 
+    background: var(--gray); 
+    color: #efeff1; 
+    border: none; 
+    padding: 10px 24px; 
+    cursor: pointer; 
+    border-radius: 10px; 
+    font-weight: 600;
+    transition: var(--transition); 
+}
+
+.filter-btn:hover { background: #444; transform: translateY(-2px); }
+.filter-btn.active { 
+    background: var(--accent); 
+    color: black; 
+    box-shadow: 0 5px 15px rgba(83, 252, 24, 0.3);
+}
+
+/* --- 4. PREMIUM KART TASARIMI (Glow + Zoom) --- */
+.grid-container { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+    gap: 30px; 
+    padding: 20px 5% 100px; 
+}
+
+.card {
+    background: var(--card);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.5s ease, border-color 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-12px) scale(1.05); /* Daha belirgin yükselme */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 25px rgba(83, 252, 24, 0.25); /* Neon Yeşil Glow */
+    border-color: var(--accent);
+    z-index: 10;
+}
+
+.card img {
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    transition: transform 0.8s ease; /* Resim yakınlaşma hızı */
+}
+img {
+    image-rendering: -webkit-optimize-contrast; /* Kontrastı ve netliği optimize eder */
+    image-rendering: crisp-edges;
+    object-fit: cover; /* Resmi kutuya sığdırırken en-boy oranını korur */
+} 
+
+.card:hover img { 
+    transform: scale(1.15); /* Hoverda resim yavaşça zoom yapar */
+}
+
+.card-info { padding: 20px; text-align: center; }
+.card-info h3 { font-size: 1.1rem; margin: 0; font-weight: 700; }
+
+/* --- 5. DETAY MODALI (Sinematik Blur + Pop) --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); 
+    backdrop-filter: blur(12px); /* Arka planı bulanıklaştırır */
+    z-index: 2000;
+    display: none; justify-content: center; align-items: center;
+    transition: opacity 0.4s ease;
+}
+
+.modal-content {
+    background: #141619; 
+    width: 70%; 
+    max-width: 900px;
+    max-height: 85vh;
+    border-radius: 20px; 
+    overflow-y: auto; 
+    position: relative;
+    border: 1px solid rgba(83, 252, 24, 0.2);
+    animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+    from { transform: translateY(30px) scale(0.9); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+
+.modal-header {
+    height: 450px; /* Biraz daha derinlik katalım */
+    background-size: cover !important;
+    background-position: center 20% !important;
+    position: relative;
+    border-radius: 20px 20px 0 0;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* Afişin üzerine şık bir karartma ve metin okuma katmanı */
+.modal-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 70%;
+    /* Alttan yukarıya doğru yumuşak bir karartma (gradient) */
+    background: linear-gradient(to top, var(--card), transparent);
+}
+
+.modal-body {
+    padding: 30px 40px 40px;
+    position: relative;
+    margin-top: -80px; /* İçeriği afişin üzerine biraz kaydıralım (Sinematik efekt) */
+    z-index: 2;
+}
+
+
+.modal-body { padding: 40px; position: relative; margin-top: -60px; }
+.close-btn { position: absolute; right: 25px; top: 20px; font-size: 40px; cursor: pointer; color: white; z-index: 100; transition: 0.3s; }
+.close-btn:hover { color: var(--accent); transform: rotate(90deg); }
+
+/* Skeleton & Loader */
+.skeleton {
+    background: linear-gradient(90deg, #191b1f 25%, #24272c 50%, #191b1f 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 15px;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.loader {
+    display: none;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.loader span {
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin: 0 5px;
+    animation: dots 0.6s infinite alternate;
+}
+
+@keyframes dots {
+    to { opacity: 0.3; transform: translateY(-10px); }
+}
+#scrollTop {
+    position: fixed; bottom: 30px; right: 30px;
+    width: 50px; height: 50px;
+    background: var(--accent); color: black;
+    border: none; border-radius: 50%;
+    font-size: 20px; font-weight: bold;
+    cursor: pointer; display: none; /* Scroll başlayınca görünecek */
+    box-shadow: 0 0 20px rgba(83, 252, 24, 0.4);
+    z-index: 1000; transition: 0.3s;
+}
+#scrollTop:hover { transform: scale(1.1); }
+
+button:focus,
+input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section {
+        height: 50vh;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+}
+/* Netflix Tarzı Satır Düzeni */
+.category-row {
+    margin-bottom: 40px;
+    padding: 0 5%;
+}
+
+.category-row h2 {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.row-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 20px 0;
+    scroll-behavior: smooth;
+}
+
+/* Kaydırma Çubuğunu Özelleştir (Kick Yeşili) */
+.row-container::-webkit-scrollbar {
+    height: 4px;
+}
+.row-container::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+.row-container::-webkit-scrollbar-track {
+    background: var(--gray);
+}
+
+/* Satır İçindeki Kart Boyutu */
+.row-container .card {
+    min-width: 220px;
+    flex-shrink: 0;
+}
+/* Satır Sistemi Stilleri */
+.category-row {
+    margin-bottom: 40px;
+    padding: 0 4%;
+}
+
+.row-title {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.row-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    scroll-behavior: smooth;
+}
+
+/* Kartların yan yana gelmesi için */
+.row-container .card {
+    min-width: 220px;
+    flex: 0 0 auto;
+}
+
+/* Şık Kaydırma Çubuğu */
+.row-container::-webkit-scrollbar {
+    height: 6px;
+}
+.row-container::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+.row-container::-webkit-scrollbar-track {
+    background: #191b1f;
+}
+
+/* Dropdown Konteynırı */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 20px 5%;
+}
+
+.dropbtn {
+    background: var(--gray);
+    color: white;
+    padding: 12px 25px;
+    border: 1px solid rgba(83, 252, 24, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.dropbtn:hover {
+    background: var(--accent);
+    color: black;
+    box-shadow: 0 0 15px rgba(83, 252, 24, 0.4);
+}
+
+/* Açılır Menü İçeriği */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #191b1f;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+    z-index: 1001;
+    border-radius: 8px;
+    border: 1px solid var(--gray);
+    margin-top: 5px;
+}
+
+.dropdown-content button {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-content button:hover {
+    background-color: var(--accent);
+    color: black;
+}
+
+.dropdown:hover .dropdown-content { display: block; }
+
+/* Aktif Filtre Rozetleri */
+.active-filters {
+    display: flex;
+    gap: 10px;
+    margin-left: 5%;
+    margin-bottom: 10px;
+}
+
+.filter-badge {
+    background: rgba(83, 252, 24, 0.1);
+    color: var(--accent);
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--accent);
+    font-size: 0.9rem;
+}
+
+.filter-panel {
+    display: flex;
+    justify-content: center; /* Butonları yatayda ortalar */
+    align-items: center;
+    gap: 20px;              /* Butonlar arasındaki boşluk */
+    padding: 30px 5%;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Dropdown butonlarının genişliklerini eşitleyelim */
+.dropbtn {
+    min-width: 150px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Mobil cihazlarda butonların alt alta düzgün binmesi için */
+@media (max-width: 768px) {
+    .filter-panel {
+        flex-wrap: wrap; /* Sığmazsa alt satıra geçer */
+        gap: 10px;
+    }
+    .dropbtn {
+        width: 100%; /* Mobilde tam genişlik */
+    }
+}
+
+
+.filter-badge {
+    background: var(--accent);
+    color: black;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(83, 252, 24, 0.2);
+}
+
+.badge-close { cursor: pointer; font-size: 16px; }
+
+.theme-btn {
+    background: var(--gray);
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Aydınlık modda okunabilirlik düzeltmeleri */
+body.light-mode {
+    --dark: #ececf1;   /* Saf beyaz yerine çok hafif grimsi-mavi */
+    --card: #f9f9fb;   /* Kartlar için yumuşak bir ton */
+    --gray: #d1d1d6;   /* Ayırıcılar için hafif gri */
+    --text: #2d2e33;   /* Saf siyah yerine koyu füme (okuması daha rahattır) */
+}
+
+/* Göz yormayan ek dokunuşlar */
+body.light-mode .hero-section {
+    box-shadow: inset 0 -120px 100px var(--dark);
+    /* Hero alanındaki sert siyah geçişi yumuşatır */
+    background-image: linear-gradient(to right, rgba(236, 236, 241, 0.95), transparent);
+}
+
+body.light-mode .card:hover {
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* Neon yerine hafif gölge */
+}
+
+.type-filters {
+    display: flex;
+    gap: 10px;
+    margin: 0 20px;
+}
+
+.type-btn {
+    background: var(--gray);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.type-btn.active {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(83, 252, 24, 0.3);
+}
+
+/* Mobilde sığması için */
+@media (max-width: 768px) {
+    .type-filters { margin: 10px 0; order: 2; }
+}
